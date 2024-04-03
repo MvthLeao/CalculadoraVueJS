@@ -1,47 +1,74 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { reactive } from 'vue'; 
+
+const estado = reactive({
+  numero1: '',
+  numero2: '',
+  operador: 'adição',
+  operacoes: {
+    adicao: (numero1, numero2) => numero1 + numero2,
+    subtracao: (numero1, numero2) => numero1 - numero2,
+    divisao: (numero1, numero2) => numero1 / numero2,
+    multiplicacao: (numero1, numero2) => numero1 * numero2,
+  },
+  resultado: 0,
+});
+
+const calcule = () => {
+  const {numero1, numero2, operador} = estado;
+  estado.resultado = estado.operacoes[operador](parseFloat(numero1), parseFloat(numero2));
+};
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <div class="container">
+    <h1>Calcule com VueJS</h1>
+    <div class="calculadora">
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
+      <input type="number" v-model="estado.numero1" @input="calcule">
+      
+      <select v-model="estado.operador" @change="calcule">
+        <option value="adição">+</option>
+        <option value="subtração">-</option>
+        <option value="multiplicação">*</option>
+        <option value="divisão">/</option>
+      </select>
+      
+      <input type="number" v-model="estado.numero2" @input="calcule">
 
-  <main>
-    <TheWelcome />
-  </main>
+      <p>Resultado: {{ estado.resultado }}</p>
+    </div>  
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
+  body {
+    font-family: Arial, sans-serif;
     display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  #app {
+    text-align: center;
   }
 
-  header .wrapper {
+  .calculator {
     display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
   }
-}
+
+  input[type="number"], select, button {
+    margin: 5px;
+    padding: 5px;
+  }
+
+  input[type="text"] {
+    margin: 10px;
+    padding: 5px;
+    width: 100px;
+  }
 </style>
