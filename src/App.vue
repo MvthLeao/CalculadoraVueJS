@@ -6,16 +6,16 @@ const estado = reactive({
   numero2: '',
   operador: 'adição',
   operacoes: {
-    adicao: (numero1, numero2) => numero1 + numero2,
-    subtracao: (numero1, numero2) => numero1 - numero2,
-    divisao: (numero1, numero2) => numero1 / numero2,
-    multiplicacao: (numero1, numero2) => numero1 * numero2,
+    adição: (numero1, numero2) => numero1 + numero2,
+    subtração: (numero1, numero2) => numero1 - numero2,
+    divisão: (numero1, numero2) => numero1 / numero2,
+    multiplicação: (numero1, numero2) => numero1 * numero2,
   },
   resultado: 0,
 });
 
 const calcule = () => {
-  const {numero1, numero2, operador} = estado;
+  const { numero1, numero2, operador } = estado;
   estado.resultado = estado.operacoes[operador](parseFloat(numero1), parseFloat(numero2));
 };
 </script>
@@ -42,20 +42,12 @@ const calcule = () => {
 </template>
 
 <style scoped>
-  body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
+  h1 {
+    margin: 30px;
+    color: green;
   }
 
-  #app {
-    text-align: center;
-  }
-
-  .calculator {
+  .calculadora, h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
